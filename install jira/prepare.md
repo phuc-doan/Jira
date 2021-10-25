@@ -1,54 +1,104 @@
-Step 1: Install Java
-Install OpenJDK 11 on RHEL 8 / CentOS 8 / Rocky Linux 8
-OpenJDK is a free and open-source implementation of the Java Platform, Standard Edition licensed under the GNU General Public License version 2.
-```sudo yum -y install  java-11-openjdk java-11-openjdk-devel```
-To check, use command
-``` java -version ```
-and wanna see Repo, use command"
-``` which java
-/usr/bin/java```
+### 🚀 Topics covered: **`Jira on Centos`** ☁️
 
-set Java environment variables
+# Jira requires Java installed in your CentOS
+# Jira doesn’t work with MySQL 8 database server, install MySQL 5.7
 
-```sudo tee /etc/profile.d/java11.sh <<EOF
+---
+**Author:** *Doan Van Phuc* 
+**Date of issue**: *Sep 25th 2021*
+> Welcome back!
+## TABLE OF CONTENTS
+
+## I) Install Java
+
+ **Install OpenJDK 11 on RHEL 8 / CentOS 8 / Rocky Linux 8
+OpenJDK is a free and open-source implementation of the Java Platform, Standard Edition licensed under the GNU General Public License version 2.**
+``` 
+sudo yum -y install  java-11-openjdk java-11-openjdk-devel
+```
+![jara1 (2)](https://user-images.githubusercontent.com/83824403/138637293-2cfdbf94-37fe-469c-a32d-5c149a39e0e4.png)
+
+
+- To check, use command
+
+```
+java -version
+```
+
+![jara2 (2)](https://user-images.githubusercontent.com/83824403/138637327-529a7515-8fa4-4f82-99ff-6e8341cbb7e3.png)
+
+
+- and wanna see Repo, use command
+``` 
+which java
+/usr/bin/java
+```
+
+ - set Java environment variables
+
+```
+sudo tee /etc/profile.d/java11.sh <<EOF
 export JAVA_HOME=\$(dirname \$(dirname \$(readlink \$(readlink \$(which javac)))))
 export PATH=\$PATH:\$JAVA_HOME/bin
 export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar
-EOF```
-Source the file to start using it without logging out.
+EOF
+```
+- Source the file to start using it without logging out.
 
-```source /etc/profile.d/java11.sh```
+```
+source /etc/profile.d/java11.sh
+```
 
 ## Install Java SE Development Kit 11 (JDK 11) on RHEL 8 / CentOS 8 / Rocky Linux 8
-Download the latest release of JDK 11.
+**Download the latest release of JDK 11.**
 
-```wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/11.0.12%2B8/f411702ca7704a54a79ead0c2e0942a3/jdk-11.0.12_linux-x64_bin.rpm```
-Then install the package with the rpmcommand
+```
+wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/11.0.12%2B8/f411702ca7704a54a79ead0c2e0942a3/jdk-11.0.12_linux-x64_bin.rpm
+```
+![jara3 (2)](https://user-images.githubusercontent.com/83824403/138637379-ea246a37-9b02-409d-ac3c-590b17265123.png)
 
-```$ sudo rpm -Uvh jdk-11.0.12_linux-x64_bin.rpm```
+- Then install the package with the rpmcommand
 
-```warning: jdk-11.0.12_linux-x64_bin.rpm: Header V3 RSA/SHA256 Signature, key ID ec551f03: NOKEY
+```
+$ sudo rpm -Uvh jdk-11.0.12_linux-x64_bin.rpm
+```
+
+```
+warning: jdk-11.0.12_linux-x64_bin.rpm: Header V3 RSA/SHA256 Signature, key ID ec551f03: NOKEY
 Verifying...                          ################################# [100%]
 Preparing...                          ################################# [100%]
 Updating / installing...
    1:jdk-11.0.12-2000:11.0.12-ga      ################################# [100%]
-Confirm Java version installed```
+Confirm Java version installed
+```
 
-```$ java -version```
-```java version "11.0.12" 2021-07-20 LTS
+```
+$ java -version
+```
+```
+java version "11.0.12" 2021-07-20 LTS
 Java(TM) SE Runtime Environment 18.9 (build 11.0.12+8-LTS-237)
-Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.12+8-LTS-237, mixed mode)```
+Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.12+8-LTS-237, mixed mode)
+```
+--- 
 
-###Step 2: Install MySQL 5.7 on CentOS 
- Add MySQL repository
-Disable MySQL default AppStream repository:
-```sudo dnf remove @mysql
-sudo dnf module reset mysql && sudo dnf module disable mysql```
-There is no MySQL repository for EL 8, so we’ll use EL 7 repository instead. Create a new repository file.
+## II) Install MySQL 5.7 on CentOS 
+**Add MySQL repository
+Disable MySQL default AppStream repository:**
+```
+sudo dnf remove @mysql
+sudo dnf module reset mysql && sudo dnf module disable mysql
+![jara5 (2)](https://user-images.githubusercontent.com/83824403/138637479-8f5abf09-ca5b-4055-8a8b-a8e7c055e833.png)
 
-```sudo vi /etc/yum.repos.d/mysql-community.repo```
-Paste below data into the file.
-```[mysql57-community]
+```
+- There is no MySQL repository for EL 8, so we’ll use EL 7 repository instead. Create a new repository file.
+
+```
+sudo vi /etc/yum.repos.d/mysql-community.repo
+```
+- Paste below data into the file.
+```
+[mysql57-community]
 name=MySQL 5.7 Community Server
 baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
 enabled=1
@@ -64,23 +114,31 @@ gpgcheck=0
 name=MySQL Tools Community
 baseurl=http://repo.mysql.com/yum/mysql-tools-community/el/7/$basearch/
 enabled=1
-gpgcheck=0```
+gpgcheck=0
+```
 
 
 ### Install MySQL 5.7 on CentOS 
-Once the repository has been added, now install MySQL 5.7 on CentOS 8 / RHEL 8.
+**Once the repository has been added, now install MySQL 5.7 on CentOS 8 / RHEL 8.**
 
-Disable MySQL 8 repository:
+- Disable MySQL 8 repository:
 
-```sudo dnf config-manager --disable mysql80-community```
-Then enable channel for MySQL 5.7.
+```
+sudo dnf config-manager --disable mysql80-community
+```
+- Then enable channel for MySQL 5.7.
 
-```sudo dnf config-manager --enable mysql57-community```
-Then install MySQL 5.7 on CentOS 8 / RHEL 8:
+```
+sudo dnf config-manager --enable mysql57-community
+```
+- Then install MySQL 5.7 on CentOS 8 / RHEL 8:
 
-```sudo dnf install mysql-community-server```
+```
+sudo dnf install mysql-community-server
+```
 Press y to start the installation.
-```Last metadata expiration check: 0:02:41 ago on Mon 06 Jan 2020 08:54:52 PM EAT.
+```
+Last metadata expiration check: 0:02:41 ago on Mon 06 Jan 2020 08:54:52 PM EAT.
 Dependencies resolved.
 ========================================================================================================================================================
  Package                                   Arch                      Version                                 Repository                            Size
@@ -99,11 +157,15 @@ Install  5 Packages
 
 Total download size: 247 M
 Installed size: 1.0 G
-Is this ok [y/N]: y```
-Check package rpm details to confirm it is 5.7.
+Is this ok [y/N]: y
+```
+***Check package rpm details to confirm it is 5.7.***
 
-```$ rpm -qi mysql-community-server ```
-```Name        : mysql-community-server
+```
+$ rpm -qi mysql-community-server
+```
+```
+Name        : mysql-community-server
 Version     : 5.7.28
 Release     : 1.el7
 Architecture: x86_64
@@ -119,23 +181,34 @@ Relocations : (not relocatable)
 Packager    : MySQL Release Engineering <mysql-build@oss.oracle.com>
 Vendor      : Oracle and/or its affiliates
 URL         : http://www.mysql.com/
-Summary     : A very fast and reliable SQL database server```
+Summary     : A very fast and reliable SQL database server
+```
 ### Step 3: Configure MySQL 5.7 on CentOS 8 / RHEL 8
-2.1 – After the installation, start mysqld service.
-```sudo systemctl enable --now mysqld.service```
-2.2 – Copy the generated random password for the root user
+**2.1 – After the installation, start mysqld service.**
+```
+sudo systemctl enable --now mysqld.service 
+```
+**2.2 – Copy the generated random password for the root user**
 
-```sudo grep 'A temporary password' /var/log/mysqld.log |tail -1```
-Take note of the printed password:
+```
+sudo grep 'A temporary password' /var/log/mysqld.log |tail -1
+```
+- Take note of the printed password:
 
+`` 
 2020-01-06T18:06:19.947403Z 1 [Note] A temporary password is generated for root@localhost: AS*5Rx%YY5+c
 2.3 – Start MySQL Secure Installation to change the root password, Disallow root login remotely, remove anonymous users and remove test database.
-```$ sudo mysql_secure_installation```
+``
+```
+$ sudo mysql_secure_installation
+
 Securing the MySQL server deployment.
 Enter password for user root:
+
+```
 Authenticate with your generated temporary password. This will ask you to set a new password for the root user.
 
-Change the password for root ? ((Press y|Y for Yes, any other key for No) : Yes
+```Change the password for root ? ((Press y|Y for Yes, any other key for No) : Yes
 
 New password: 
 Re-enter new password: 
@@ -160,10 +233,18 @@ Success.
 
 All done!
 You can use online password generator to get a complex password.
+```
+***Check mysql***
 
-###2.4 – Connect to MySQL Database as root user and create a test database.
 
-``$ mysql -u root -p```
+![jara6 (2)](https://user-images.githubusercontent.com/83824403/138637806-4505eaae-ea24-4f86-b1a6-8b34bb14e417.png)
+
+
+### 2.4 – Connect to MySQL Database as root user and create a test database.
+
+```
+$ mysql -u root -p
+
 Enter password: <Enter Root Password>
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 15
@@ -177,7 +258,8 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-```mysql> SELECT VERSION();
+
+  mysql> SELECT VERSION();
 +-----------+
 | VERSION() |
 +-----------+
@@ -187,8 +269,10 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> QUIT
 Bye
-2.5 – Create a test database and user:
+```
+###   2.5 – Create a test database and user:
 
+```
 mysql> CREATE DATABASE test_db;
 Query OK, 1 row affected (0.09 sec)
 
@@ -221,4 +305,5 @@ mysql> show databases;
 4 rows in set (0.01 sec)
 
 mysql> QUIT
-Bye```
+Bye
+   ```
