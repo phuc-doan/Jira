@@ -207,10 +207,10 @@ sudo systemctl restart nginx
 - **`Allow http port`** in the firewall:
 
 ```
-  ```
-  sudo firewall-cmd --add-service=http --permanent
+ 
+ sudo firewall-cmd --add-service=http --permanent
 sudo firewall-cmd --reload
-  ``
+  ```
 
   
   
