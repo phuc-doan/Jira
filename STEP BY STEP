@@ -1,0 +1,11 @@
+## Install Java
+## Install Mysql
+- Create New SQL 
+## Install Nginx
+## Install Jira
+- Config Jira nginx proxy -add port-
+- Config /etc/nginx/conf.d/jira.conf - open port's nginx-
+### restart service
+### Accept selinux, firewall
+### Restart Jira
+### Access to IP In oder to Acess Jira
