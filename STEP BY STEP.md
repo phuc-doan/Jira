@@ -86,6 +86,10 @@ sudo firewall-cmd --reload
  
  ```
  
+ ```
+ chmod +x atlassian-jira-software.bin
+ ```
+ 
 - Config Jira nginx proxy -add port-
 - Config /etc/nginx/conf.d/jira.conf - open port's nginx-
 ### restart service
