@@ -80,6 +80,12 @@ sudo firewall-cmd --permanent --zone=public --add-service=https
 sudo firewall-cmd --reload
 ```
 ## Install Jira
+
+```
+ wget https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-software-8.8.1-x64.bin -O atlassian-jira-software.bin
+ 
+ ```
+ 
 - Config Jira nginx proxy -add port-
 - Config /etc/nginx/conf.d/jira.conf - open port's nginx-
 ### restart service
