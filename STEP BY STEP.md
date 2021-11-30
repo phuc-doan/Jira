@@ -6,8 +6,9 @@ Install OpenJDK 11
 sudo yum update
 ```
 -  Then, install the Java Development Kit with the following command:
-
+```
 sudo yum install java-11-openjdk-devel
+```
 The output displays the downloaded and installed JDK, as in the image below:
 
 output displaying downloaded and installed JDK
